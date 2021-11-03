@@ -275,3 +275,18 @@ img.user-detail {
     font-style:italic;
     color:#ccc;
 }
+
+span .logout{
+    background-color: red;
+    border: 1px solid red;
+    border-radius: 4%;
+    padding: 3px;
+}
+
+span .login{
+    background-color: green;
+    border: 1px solid green;
+    border-radius: 4%;
+    padding: 3px;
+
+}
