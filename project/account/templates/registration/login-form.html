@@ -1,0 +1,15 @@
+{% load crispy_forms_tags %}
+
+
+<!-- Hidden login block -->
+     <h2 class="textLogin">LOG-IN</h2> 
+        <hr>
+        <form action="." id="" method="post">
+        {{form|crispy}}
+        {% csrf_token %}
+        <br>
+        <input class="btn btn-warning" id='btn' type="submit" value="Sign-in">
+        
+        </form>
+        <br>
+        <p><a href="{% url 'password_reset' %}">Forgotten your password?</a></p>

@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth.models import User
 
+from django.template.defaultfilters import mark_safe
 
 class UserRegistrationForm(forms.ModelForm):
     password = forms.CharField(label='Password',
@@ -22,5 +23,5 @@ class UserRegistrationForm(forms.ModelForm):
 
 
 class LoginForm(forms.Form):
-    username = forms.CharField()
-    password = forms.CharField(widget=forms.PasswordInput)
+    username = forms.CharField(label = mark_safe('<strong>My Bold Field Label</strong>'))
+    password = forms.CharField(widget=forms.PasswordInput,label='Password:',)

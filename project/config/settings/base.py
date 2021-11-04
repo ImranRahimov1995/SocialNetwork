@@ -11,13 +11,16 @@ INSTALLED_APPS = [
     #second_app
      
     #third_app
-         
+
+    #_________     
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #3rd-part
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -91,3 +94,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = 'dashboard'
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
+
+
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
