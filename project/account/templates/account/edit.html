@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="otherAuthBlock"style="margin-top: 1%">
+
+    <h1>Edit your account</h1>
+    <p>You can edit your account using the following form:</p>
+    <form action="." method="post" enctype="multipart/form-data">
+    {{ user_form|crispy }}
+    <hr>
+    {{ profile_form|crispy }}
+    {% csrf_token %}
+    <br>
+    <p><input class="btn btn-warning" type="submit" value="Save changes"></p>
+   <div id="date-picker-example" class="md-form md-outline input-with-post-icon datepicker">
+  <input placeholder="Select date" type="text" id="example" class="form-control">
+  <label for="example">Try me...</label>
+  <i class="fas fa-calendar input-prefix" tabindex=0></i>
+</div>
+    </form>
+ </div>
+{% endblock %}
+
+{%block js%}
+$('.datepicker').datepicker();
+
+{%endblock js%}
