@@ -55,7 +55,6 @@ body{
     display: block;
     
     transition: margin 5s ease-out 0.5s;
-    position: absolute;
     margin-top: 5%;
     margin-left: 7%;
     background-color: rgb(248, 245, 240);

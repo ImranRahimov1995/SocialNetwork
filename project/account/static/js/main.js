@@ -3,8 +3,8 @@ $("#loginPage").on('click', function(){
     $('.signUpBlock').css('display','none');
 } );
 
-$("#signPage").on('click', function(){
-    $('.signUpBlock').css('display','block');
-    $('.signUpBlock').css('margin-left','7%');
-    $('.loginBlock').css('display','none');
-} );
+// $("#signPage").on('click', function(){
+//     $('.signUpBlock').css('display','block');
+//     $('.signUpBlock').css('margin-left','7%');
+//     $('.loginBlock').css('display','none');
+// } );
