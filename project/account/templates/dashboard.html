@@ -5,8 +5,25 @@
 
 
 {% block content %}
-    <div>
-    <h1>Dashboard</h1>
-    <p>Welcome to your dashboard</p>
-    </div>
+        <div class="item_1" id="avatar">
+            <img src="{{profile.photo.url   }}" id="jpg_avatar" alt="">
+        </div>
+        <div class="item_4" id="info">
+            {% with request.user as user  %}
+            <p>Full name: {{user.first_name}} {{user.last_name}} </p>
+            <p>Birth: {{profile.date_of_birth}}6</p>
+            <p>City: Baku</p>
+            {% endwith %}
+        </div>
+
+        <div class="item_2" id="status">status</div>
+        <div class="item_3" id="subscribe">    
+            <p>My subscribes: 1</p>
+        </div>
+        <div class="item_5" id="actions">My actions</div>
+        <div class="item_6" id="articles">My articles</div>
 {% endblock content %}
+
+{%block js%}
+$('.main-container').addClass('ad');
+{%endblock js%}

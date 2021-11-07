@@ -4,6 +4,7 @@ from .views import *
 
 urlpatterns = [
     path('register/',register,name='register'),
+    path('edit/',edit,name='edit'),
 
     path('', include('django.contrib.auth.urls')),
     #main

@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-
+from .models import Profile
 
 class UserRegistrationForm(forms.ModelForm):
     password = forms.CharField(label='Password',
@@ -10,7 +10,7 @@ class UserRegistrationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('username','first_name','email',)
+        fields = ('username','first_name','last_name','email',)
 
 
     def clean_password2(self):
@@ -24,3 +24,18 @@ class UserRegistrationForm(forms.ModelForm):
 class LoginForm(forms.Form):
     username = forms.CharField()
     password = forms.CharField(widget=forms.PasswordInput)
+
+#________________________________________________
+
+class UserEditForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('username','first_name','last_name','email',)
+
+
+class ProfileEditForm(forms.ModelForm):
+    date_of_birth =  forms.DateField(widget=forms.SelectDateWidget())
+    photo =forms.ImageField(widget=forms.FileInput(attrs={'class':'chooseFileButton','row':1,}))
+    class Meta:
+        model = Profile
+        fields = ('date_of_birth','photo')
