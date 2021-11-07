@@ -103,3 +103,63 @@ label {
     padding: 2%;
     box-shadow: 15px 30px 20px  rgb(163, 163, 162);
 }
+
+
+/* grid */
+
+.ad{
+    display: grid;
+    grid-template-areas: 
+      "avatar status subscribe"
+      "info articles subscribe"
+      "actions articles subscribe"   
+      "actions articles subscribe";   
+    grid-template-rows: 40vh 1fr 60px;
+    grid-template-columns: 40vh 1fr 15%;
+    grid-gap: 10px;
+    height: 100vh;
+    margin: 0;
+    margin-left: 5%;
+    margin-top: 1vh;
+
+}
+
+#avatar, #status, #subscribe, #info, #actions,#articles {
+    padding: 20px;
+    border: 1px solid black;
+}
+
+#avatar {
+    grid-area: avatar;
+    display: flex;
+}
+#jpg_avatar{
+    border: 1px solid black;
+    border-radius: 50%;
+}
+#status {
+    grid-area: status;
+}
+#subscribe { 
+    grid-area: subscribe;
+    height: 39vh;   
+    /* align-self: flex-start; */
+    
+}
+#info { 
+    grid-area: info; 
+    height: 39vh;
+}
+#info p{ 
+    background: red;
+}
+#actions { 
+    grid-area: actions; 
+    height: 50vh;
+    
+}
+#articles { 
+    grid-area: articles; 
+    padding: 0%;
+}
+/* end grid */
