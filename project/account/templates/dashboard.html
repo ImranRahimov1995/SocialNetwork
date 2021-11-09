@@ -1,22 +1,42 @@
 {% extends 'base.html' %}
-
+{%load static%}
 {%block title%}Dashboard{%endblock title%}
 
 
 
 {% block content %}
         <div class="item_1" id="avatar">
-            <img src="{{profile.photo.url   }}" id="jpg_avatar" alt="">
+            {%if profile.photo%}
+                <img src="{{profile.photo.url   }}" id="jpg_avatar" alt="">
+            {% else %}
+                <img src="{% static 'png/no_image.png'%}" id="jpg_avatar" alt="">
+            {% endif %}
         </div>
         <div class="item_4" id="info">
             {% with request.user as user  %}
             <p>Full name: {{user.first_name}} {{user.last_name}} </p>
-            <p>Birth: {{profile.date_of_birth}}6</p>
+            <p>Birth: {{profile.date_of_birth}}</p>
             <p>City: Baku</p>
             {% endwith %}
-        </div>
+            <p style='background-color:orange;'><a href="{%url 'edit' %}">Edit your profile</a></p>
 
-        <div class="item_2" id="status">status</div>
+        </div>
+        <div class="item_2" id="status">
+        <form id="PublicStatus">
+            <div class="form-group">
+            <label for="exampleFormControlTextarea1">Update your status:</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            
+            <a  id='sendStatus'>Send</a>
+            <a  id='cancelChangeStatus'>Cancel</a>
+            </div>
+        </form>
+        <div class="PublcStatus" id="pbs">
+            <p>Your active status:</p>
+            <p id="pbsText" style="font-style: italic; font-size: 24px;">{{public_status.status_text}}</p>
+            <a href="#" id="changeStatus"  style="font-family:serif;">Change status</a>
+        </div>
+        </div>
         <div class="item_3" id="subscribe">    
             <p>My subscribes: 1</p>
         </div>
@@ -26,4 +46,36 @@
 
 {%block js%}
 $('.main-container').addClass('ad');
+$("#changeStatus").on('click', function(){
+    $('#PublicStatus').css('display','block');
+    $('#pbs').css('display','none');
+} );
+$("#cancelChangeStatus").on('click', function(){
+    $('#PublicStatus').css('display','none');
+    $('#pbs').css('display','block');
+} );
+
+$(document).ready(function(){
+
+    $("#sendStatus").on('click', function(e){
+        e.preventDefault();
+
+        let text_data = $('#exampleFormControlTextarea1').val()
+        let profile_pk = {{profile.pk}}
+
+        $.ajax({
+            url: `/api/profile/status/get/${profile_pk}/`,
+            method: 'put',
+            dataType: 'json',
+            data: {status_text: text_data ,
+                    owner: profile_pk},
+            success: function(data){
+                $('#PublicStatus').css('display','none');
+                $('#pbs').css('display','block');
+                $('#pbsText').text(text_data);
+
+            }
+        });
+    });
+});
 {%endblock js%}

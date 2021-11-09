@@ -17,7 +17,7 @@ class Profile(models.Model):
 
 class PublicStatus(models.Model):
     owner = models.OneToOneField(Profile,on_delete=models.CASCADE)
-    status_text = models.CharField(max_length=250)
+    status_text = models.CharField(max_length=250,blank=True)
 
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)

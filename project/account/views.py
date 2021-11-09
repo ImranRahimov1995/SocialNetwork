@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth.decorators import login_required
-from .models import Profile
+from .models import Profile,PublicStatus
 from .forms import *
 from django.contrib import messages
 
@@ -8,7 +8,11 @@ from django.contrib import messages
 @login_required
 def dashboard(request):
     profile = Profile.objects.get(user=request.user)
-    return render(request,'dashboard.html',{'section':'dashboard','profile':profile})
+    public_status =  PublicStatus.objects.get(owner=profile)
+    return render(request,'dashboard.html',{'section':'dashboard',
+                                            'profile':profile,
+                                            'public_status':public_status,
+                                            })
 
 
 def register(request):
@@ -19,8 +23,8 @@ def register(request):
             new_user.set_password(user_form.cleaned_data['password'])
             new_user.save()
             #Create new profile with new user
-            Profile.objects.create(user=new_user)
-
+            profile = Profile.objects.create(user=new_user)
+            PublicStatus.objects.create(owner=profile)
             return render(request,'account/register_done.html',
                                         {'new_user':new_user,})
     else:

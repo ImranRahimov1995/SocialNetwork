@@ -6,3 +6,5 @@ class PublicStatusSerializer(serializers.ModelSerializer):
     class Meta:
         model = PublicStatus
         fields = '__all__'
+
+
