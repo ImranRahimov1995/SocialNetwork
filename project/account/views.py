@@ -1,20 +1,31 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Profile,PublicStatus
 from .forms import *
 from django.contrib import messages
+from django.views.decorators.http import require_http_methods
 
 
-@login_required
-def dashboard(request):
-    profile = Profile.objects.get(user=request.user)
+
+# in developing|security faulth
+@require_http_methods(["GET"])
+def profile_detail(request,pk):
+    profile = get_object_or_404(Profile,user=pk)
     public_status =  PublicStatus.objects.get(owner=profile)
-    return render(request,'dashboard.html',{'section':'dashboard',
+    return render(request,'account/profile_detail.html',{ ######,
                                             'profile':profile,
                                             'public_status':public_status,
                                             })
 
 
+@login_required
+def dashboard(request):
+    profile = get_object_or_404(Profile,user=request.user)
+    public_status =  PublicStatus.objects.get(owner=profile)
+    return render(request,'account/dashboard.html',{ ######,
+                                            'profile':profile,
+                                            'public_status':public_status,
+                                            })
 def register(request):
     if request.method == 'POST':
         user_form = UserRegistrationForm(request.POST)
@@ -34,6 +45,7 @@ def register(request):
 
 @login_required
 def edit(request):
+    """Profile edit"""
     if request.method == 'POST':
         user_form = UserEditForm(instance=request.user,
                                  data=request.POST)
@@ -43,11 +55,10 @@ def edit(request):
 
         if user_form.is_valid() and profile_form.is_valid():
             messages.success(request, 'Profile updated successfully')
-            
             user_form.save()
             profile_form.save()
-            
             return  redirect('dashboard')
+
         else:
              messages.error(request, 'Error updating your profile')
 

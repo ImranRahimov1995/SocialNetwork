@@ -7,7 +7,9 @@ p ,a{
     font-family: 'Raleway', sans-serif;
     text-decoration: none;
 }
-
+img{
+    overflow: hidden;
+}
 span .logout{
     background-color: red;
     border: 1px solid red;
@@ -53,7 +55,6 @@ label {
     color: black;
     font-weight: bold;
     margin: 3px;
-
 }
 
 .chooseFileButton{
@@ -87,9 +88,7 @@ label {
 
 
 /* sssssssss */
-.main-container{
-    flex-direction: row;
-    display: flex;}
+
 
 .signUpBlock{   
     display: block;
@@ -121,7 +120,6 @@ label {
     margin: 0;
     margin-left: 5%;
     margin-top: 1vh;
-
 }
 
 #avatar, #status, #subscribe, #info, #actions,#articles {
