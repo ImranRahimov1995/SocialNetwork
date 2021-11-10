@@ -9,7 +9,7 @@ INSTALLED_APPS = [
     #first_app
     'account',
     #second_app
-     #testgitoptions
+
     #third_app
 
     #_________     
@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     #3rd-part
     'crispy_forms',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -98,3 +99,13 @@ LOGOUT_URL = 'logout'
 
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ],
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    )
+}
+

@@ -1,6 +1,9 @@
 from django import forms
 from django.contrib.auth.models import User
 from .models import Profile
+from .services import get_years_range
+
+
 
 class UserRegistrationForm(forms.ModelForm):
     password = forms.CharField(label='Password',
@@ -34,8 +37,10 @@ class UserEditForm(forms.ModelForm):
 
 
 class ProfileEditForm(forms.ModelForm):
-    date_of_birth =  forms.DateField(widget=forms.SelectDateWidget())
+    date_of_birth =  forms.DateField(widget=forms.SelectDateWidget(years=get_years_range()))
     photo =forms.ImageField(widget=forms.FileInput(attrs={'class':'chooseFileButton','row':1,}))
     class Meta:
         model = Profile
         fields = ('date_of_birth','photo')
+
+
