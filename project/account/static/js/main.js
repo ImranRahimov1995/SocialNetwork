@@ -21,3 +21,4 @@ var csrftoken = Cookies.get('csrftoken');
         }
       }
     });
+

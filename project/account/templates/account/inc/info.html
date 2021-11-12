@@ -1,0 +1,6 @@
+{% with request.user as user  %}
+    <p>Full name: {{user.first_name}} {{user.last_name}} </p>
+    <p>Birth: {{profile.date_of_birth}}</p>
+    <p>City: Baku</p>
+{% endwith %}
+<p style='background-color:orange;'><a href="{%url 'edit' %}">Edit your profile</a></p>

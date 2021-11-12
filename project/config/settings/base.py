@@ -9,7 +9,7 @@ INSTALLED_APPS = [
     #first_app
     'account',
     #second_app
-
+    'posts',
     #third_app
 
     #_________     
