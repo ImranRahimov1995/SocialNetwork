@@ -30,4 +30,34 @@ $(document).ready(function(){
             }
         });
     });
+    $("#createPost").on('click', function(e){
+        e.preventDefault();
+
+        let text_data = $('#createPostBody').val()
+        let profile_pk = {{profile.pk}}
+
+        $.ajax({
+            url: 'api/posts/create/',
+            method: 'post',
+            dataType: 'json',
+            data: { body: text_data ,
+                    profile: profile_pk,
+                    active: true },
+                    
+            success: function(data){
+                $('#createPostBody').val('')
+                $('.posts').prepend(` \
+                <div class="card"> \
+                <div class="card-header"> \
+                ${data['created']} ago \
+                </div> \
+                <div class="card-body" style=""> \
+                  <p class="card-text"> ${data['body']}</p> \
+                  {% comment %} <a href="#" class="btn btn-warning">Go somewhere</a> {% endcomment %} \
+                </div> \
+              </div> \
+              `)
+            }
+        });
+    });
 });

@@ -160,7 +160,7 @@ label {
 #articles { 
     grid-area: articles; 
     padding: 1%;
-    overflow: hidden;
+    overflow: scroll;
 }
 /* end grid */
 
@@ -171,4 +171,14 @@ label {
 .PublcStatus{
     border: 1px solid black;
     padding: 10px;
+}
+
+/* posts */
+.card-header{
+    color: rgb(228, 230, 211);
+    background: linear-gradient(90deg, rgb(37, 37, 37) 0%, rgba(0,0,0,1) 81%, rgb(243, 239, 9) 100%);
+}
+.card-body{
+    background-color: black;
+    color: blanchedalmond;
 }
