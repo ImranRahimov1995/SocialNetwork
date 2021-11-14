@@ -9,11 +9,14 @@
       </div>
 </div>
 <hr>
+
 <div class="posts">
     {%for post in posts%}
-    <div class="card">
+    <div class="card" data-id="{{post.id}}">
         <div class="card-header">
-          {{post.created|timesince}} ago
+          {{post.created|timesince}}  ago
+          <button type="button" class="btn-close float-end" id="closeButton"  aria-label="Close"></button>
+
         </div>
         <div class="card-body" style="">
           <p class="card-text">{{post.body}}</p>
