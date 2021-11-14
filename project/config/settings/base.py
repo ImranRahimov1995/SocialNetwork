@@ -9,7 +9,7 @@ INSTALLED_APPS = [
     #first_app
     'account',
     #second_app
-
+    'posts',
     #third_app
 
     #_________     
@@ -106,6 +106,7 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_RENDERER_CLASSES': (
         'rest_framework.renderers.JSONRenderer',
+        # 'rest_framework.renderers.BrowsableAPIRenderer',
     )
 }
 

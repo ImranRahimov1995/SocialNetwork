@@ -1,0 +1,7 @@
+{%load static%}
+
+{%if profile.photo%}
+    <img src="{{profile.photo.url   }}" id="jpg_avatar" alt="">
+{% else %}
+    <img src="{% static 'png/no_image.png'%}" id="jpg_avatar" alt="">
+{% endif %}

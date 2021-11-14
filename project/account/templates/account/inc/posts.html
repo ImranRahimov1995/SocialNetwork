@@ -1,0 +1,27 @@
+
+<div class="new-post">
+    <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">Create Post</label>
+        <textarea class="form-control" placeholder="Type text here..." id="createPostBody" rows="3"></textarea>
+        <br>
+        <p><input type="submit" id='createPost' class="btn btn-warning float-end" value="Publish"></p>
+        <br>
+      </div>
+</div>
+<hr>
+
+<div class="posts">
+    {%for post in posts%}
+    <div class="card" data-id="{{post.id}}">
+        <div class="card-header">
+          {{post.created|timesince}}  ago
+          <button type="button" class="btn-close float-end" id="closeButton"  aria-label="Close"></button>
+
+        </div>
+        <div class="card-body" style="">
+          <p class="card-text">{{post.body}}</p>
+          {% comment %} <a href="#" class="btn btn-warning">Go somewhere</a> {% endcomment %}
+        </div>
+      </div>
+     {%endfor%} 
+</div>

@@ -1,0 +1,14 @@
+    <form id="PublicStatus">
+            <div class="form-group">
+            <label for="exampleFormControlTextarea1">Update your status:</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            
+            <a  id='sendStatus'>Send</a>
+            <a  id='cancelChangeStatus'>Cancel</a>
+            </div>
+        </form>
+        <div class="PublcStatus" id="pbs">
+            <p>Your active status:</p>
+            <p id="pbsText" style="font-style: italic; font-size: 24px;">{{public_status.status_text}}</p>
+            <a href="#" id="changeStatus"  style="font-family:serif;">Change status</a>
+        </div>

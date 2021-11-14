@@ -4,7 +4,7 @@ from .models import Profile,PublicStatus
 from .forms import *
 from django.contrib import messages
 from django.views.decorators.http import require_http_methods
-
+from posts.models import Post
 
 
 # in developing|security faulth
@@ -22,9 +22,11 @@ def profile_detail(request,pk):
 def dashboard(request):
     profile = get_object_or_404(Profile,user=request.user)
     public_status =  PublicStatus.objects.get(owner=profile)
+    posts = Post.objects.filter(active=True,profile=profile).order_by('-created')
     return render(request,'account/dashboard.html',{ ######,
                                             'profile':profile,
                                             'public_status':public_status,
+                                            'posts':posts,
                                             })
 def register(request):
     if request.method == 'POST':
