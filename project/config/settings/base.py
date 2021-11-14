@@ -11,7 +11,7 @@ INSTALLED_APPS = [
     #second_app
     'posts',
     #third_app
-
+    'friendship',
     #_________     
     'django.contrib.admin',
     'django.contrib.auth',
