@@ -1,4 +1,22 @@
 {% extends 'base.html' %}
 
 {%block content%}
+<div class="people-container">
+    <div class="people-filter">
+        <p>Filter</p>
+    </div>
+    <div class="people-list">
+        {% for people in peoples%}
+        <div class="card" style="width: 15rem;height: 50px;">
+            <a href="{{people.get_absolute_url}}">
+            <img src="{{people.photo.url}}" class="card-img-top" alt="...">
+            </a>
+            <div class="card-body">
+              <h5 class="card-title"><a href="{{people.get_absolute_url}}">{{people.user.first_name}}</a></h5>
+              <a href="#" class="btn btn-primary">Add friend</a>
+            </div>
+        </div>
+        {%endfor%}
+    </div>
+</div>
 {%endblock content%}
