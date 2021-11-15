@@ -2,7 +2,6 @@
 {%load static%}
 
 
-
 {% block content %}
         <div class="item_1" id="avatar">
             {% include "./inc/avatar.html"%}
@@ -14,7 +13,7 @@
             {% include "./inc/status.html"%}
         </div>
         <div class="item_3" id="subscribe">    
-            <p>My subscribes: 1</p>
+            {% include "./inc/subscribers.html"%}
         </div>
         <div class="item_5" id="actions">My actions</div>
         <div class="item_6" id="articles">

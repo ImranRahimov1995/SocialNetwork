@@ -1,0 +1,10 @@
+<div class="friend-request">
+    {%for fr_request in profile.fr_request.all %}
+    {% if fr_request.accepted == False %}
+    <p><a style="color: red;" href="{{fr_request.user_from.get_absolute_url}}" >{{fr_request.user_from.user |capfirst}}</a> send you friendship request</p> 
+    <a href="#"style="color: green;">Accept</a>
+    <a href="#" style="color: red;">Decline</a>
+    <hr>
+    {%endif%}
+    {%endfor%}
+</div>

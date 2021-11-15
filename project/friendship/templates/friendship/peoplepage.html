@@ -7,16 +7,40 @@
     </div>
     <div class="people-list">
         {% for people in peoples%}
-        <div class="card" style="width: 15rem;height: 50px;">
+        <div class="card" data-id="{{people.id}}" style="width: 15rem;height: 50px;">
             <a href="{{people.get_absolute_url}}">
             <img src="{{people.photo.url}}" class="card-img-top" alt="...">
             </a>
             <div class="card-body">
               <h5 class="card-title"><a href="{{people.get_absolute_url}}">{{people.user.first_name}}</a></h5>
-              <a href="#" class="btn btn-primary">Add friend</a>
+              <a href="#" id='add_friend' class="btn btn-primary">Add friend</a>
             </div>
         </div>
         {%endfor%}
     </div>
 </div>
 {%endblock content%}
+
+{%block js%}
+
+$(".card").on('click', 'a.btn',function(e){
+    e.preventDefault();
+    let people_id = $(this).parent().parent().attr('data-id');
+    let my_id = {{user.profile.id}}
+
+    console.log(my_id)
+    $.ajax({
+        url: `/api/people/add/`,
+        method: 'post',
+        dataType: 'json',
+        data: { 
+            user_from : my_id,
+            user_to: people_id,
+        },
+                
+        success: function(data){
+        }
+    });
+});
+
+{%endblock js%}
