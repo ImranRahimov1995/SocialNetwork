@@ -23,7 +23,7 @@ def dashboard(request):
     profile = get_object_or_404(Profile,user=request.user)
     public_status =  PublicStatus.objects.get(owner=profile)
     posts = Post.objects.filter(active=True,profile=profile).order_by('-created')
-    return render(request,'account/dashboard.html',{ ######,
+    return render(request,'account/dashboard.html',{ 'section':'Profile',
                                             'profile':profile,
                                             'public_status':public_status,
                                             'posts':posts,

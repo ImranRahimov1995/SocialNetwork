@@ -9,5 +9,6 @@ def all_people(request):
 
     context = {
         'peoples':peoples,
+        'section':'People',
     }
     return render(request,'friendship/peoplepage.html',context)

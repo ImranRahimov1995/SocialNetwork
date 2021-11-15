@@ -27,12 +27,12 @@
         </a>
         <ul class="my-cs nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
             {% if request.user.is_authenticated %}
-            <li><a href="#" class="nav-link px-2 text-secondary">Profile</a></li>
-            <li><a href="#" class="nav-link px-2 text-white">Timeline</a></li>
-            <li><a href="#" class="nav-link px-2 text-white">Messages</a></li>
-            <li><a href="{% url 'friendship:people' %}" class="nav-link px-2 text-white">People</a></li>
-            {% endif %}
-        </ul>
+            <li><a href="{% url 'dashboard' %}" class="nav-link px-2 {%if section == "Profile"%}text-secondary{%else%} text-white{%endif%}">Profile</a></li>
+            <li><a href="#" class="nav-link px-2 {%if section == "Timeline"%}text-secondary{%else%} text-white{%endif%}">Timeline</a></li>
+            <li><a href="#" class="nav-link px-2 {%if section == "Messages"%}text-secondary{%else%} text-white{%endif%}">Messages</a></li>
+            <li><a href="{% url 'friendship:people' %}" class="nav-link px-2 {%if section == "People"%}text-secondary{%else%} text-white{%endif%}">People</a></li>
+        </ul>       
+        {%endif%}
         <div class="text-end">
             {% if request.user.is_authenticated %}
                 Hello {{ request.user }}
@@ -43,6 +43,7 @@
             {%endif%}
         </div>
         </div>
+        
     </div>
     </header>
     <!-- end Navbar -->
