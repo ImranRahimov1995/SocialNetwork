@@ -3,7 +3,6 @@ from account.models import Profile
 
 
 
-
 class FriendshipRequest(models.Model):
 
     user_from = models.ForeignKey(Profile,related_name='sended_fr_request',on_delete=models.CASCADE)
@@ -14,9 +13,10 @@ class FriendshipRequest(models.Model):
 
     class Meta:
         ordering = ('-created',)
+        unique_together = ('user_from', 'user_to')
+
 
     def __str__(self):
         return f"{self.user_from} send friendship {self.user_to}"
 
 
-    

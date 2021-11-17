@@ -6,14 +6,18 @@
         <p>Filter</p>
     </div>
     <div class="people-list">
-        {% for people in peoples%}
-        <div class="card" data-id="{{people.id}}" style="width: 15rem;height: 50px;">
-            <a href="{{people.get_absolute_url}}">
-            <img src="{{people.photo.url}}" class="card-img-top" alt="...">
+        {% for peop in people%}
+        <div class="card" data-id="{{peop.id}}" style="width: 15rem;height: 50px;">
+            <a href="{{peop.get_absolute_url}}">
+            {%if peop.photo%}
+                <img src="{{peop.photo.url}}" class="card-img-top" alt="...">
+            {%endif%}
             </a>
             <div class="card-body">
-              <h5 class="card-title"><a href="{{people.get_absolute_url}}">{{people.user.first_name}}</a></h5>
-              <a href="#" id='add_friend' class="btn btn-primary">Add friend</a>
+              <h5 class="card-title"><a href="{{peop.get_absolute_url}}">{{peop.user.first_name}}</a></h5>
+              <a href="#" id='add_friend'  class="btn btn-primary">
+              Add friend
+              </a>
             </div>
         </div>
         {%endfor%}
@@ -27,8 +31,7 @@ $(".card").on('click', 'a.btn',function(e){
     e.preventDefault();
     let people_id = $(this).parent().parent().attr('data-id');
     let my_id = {{user.profile.id}}
-
-    console.log(my_id)
+    let thisButton = $(this)
     $.ajax({
         url: `/api/people/add/`,
         method: 'post',
@@ -39,6 +42,7 @@ $(".card").on('click', 'a.btn',function(e){
         },
                 
         success: function(data){
+            thisButton.text('sended')
         }
     });
 });

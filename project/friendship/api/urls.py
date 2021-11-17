@@ -4,6 +4,7 @@ from . import views
 
 urlpatterns = [
     path('add/',views.FriendshipRequestCreateView.as_view()),
+    path('get/<pk>/',views.FriendshipRequestRetrieveView.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
