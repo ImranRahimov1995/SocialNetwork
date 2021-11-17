@@ -112,7 +112,7 @@ label {
       "avatar status subscribe"
       "info articles subscribe"
       "actions articles subscribe"   
-      "actions articles subscribe";   
+      "actions articles friends";   
     grid-template-rows: 40vh 1fr 60px;
     grid-template-columns: 40vh 1fr 15%;
     grid-gap: 10px;
@@ -138,11 +138,15 @@ label {
 #status {
     grid-area: status;
 }
+#friends{
+    grid-area: friends;
+    border: 1px solid black;
+
+}
 #subscribe { 
     grid-area: subscribe;
-    height: 39vh;   
     /* align-self: flex-start; */
-    
+    overflow: scroll;
 }
 #info { 
     grid-area: info; 
