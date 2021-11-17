@@ -1,11 +1,12 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from .models import Profile,PublicStatus
 from .forms import *
 from django.contrib import messages
 from django.views.decorators.http import require_http_methods
 from posts.models import Post
-
+from friendship.models import FriendshipRequest
 
 # in developing|security faulth
 @require_http_methods(["GET"])
@@ -23,6 +24,7 @@ def dashboard(request):
     profile = get_object_or_404(Profile,user=request.user)
     public_status =  PublicStatus.objects.get(owner=profile)
     posts = Post.objects.filter(active=True,profile=profile).order_by('-created')
+    
     return render(request,'account/dashboard.html',{ 'section':'Profile',
                                             'profile':profile,
                                             'public_status':public_status,
