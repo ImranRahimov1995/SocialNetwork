@@ -1,22 +1,40 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
 from .models import Profile,PublicStatus
 from .forms import *
 from django.contrib import messages
 from django.views.decorators.http import require_http_methods
 from posts.models import Post
-from friendship.models import FriendshipRequest
+from .services import check_friendship,check_sended_fr
+
+
+
 
 # in developing|security faulth
 @require_http_methods(["GET"])
+@login_required
 def profile_detail(request,pk):
     profile = get_object_or_404(Profile,user=pk)
     public_status =  PublicStatus.objects.get(owner=profile)
-    return render(request,'account/profile_detail.html',{ ######,
-                                            'profile':profile,
-                                            'public_status':public_status,
-                                            })
+    posts = Post.objects.filter(active=True,profile=profile).order_by('-created')
+
+
+
+    my_friend_or_not = check_friendship(request.user.profile,profile)
+    i_am_send_request = check_sended_fr(request.user.profile,profile)
+
+
+
+    return render(request,'account/profile_detail.html',{
+                                    'section': 'Profile',
+                                    'profile':profile,
+                                    'public_status':public_status,
+                                    'posts': posts,
+                                    'my_friend_or_not':my_friend_or_not,
+                                    'i_am_send_request':i_am_send_request,
+                                     })
+
+
 
 
 @login_required
@@ -30,6 +48,10 @@ def dashboard(request):
                                             'public_status':public_status,
                                             'posts':posts,
                                             })
+
+
+
+
 def register(request):
     if request.method == 'POST':
         user_form = UserRegistrationForm(request.POST)
@@ -45,6 +67,8 @@ def register(request):
     else:
         user_form = UserRegistrationForm()
     return render(request,'account/register.html',{'user_form':user_form,})
+
+
 
 
 @login_required
