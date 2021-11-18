@@ -1,8 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.urls import reverse
-
-
+from django.db.models import Q
 
 
 
@@ -33,13 +32,16 @@ class Profile(models.Model):
 
         fr = self.fr_request.filter(accepted=True)
         sended_frs = self.sended_fr_request.filter(accepted=True)
-
+        print(fr)
+        print(sended_frs)
         if fr:
-            my_friends.append(*fr)
-            # if sended_frs:
-            #     my_friends.append(*sended_frs)
+            for i in fr:
+                my_friends.append(i)
         if sended_frs:
-            my_friends.append(*sended_frs)
+            for i in sended_frs:
+                my_friends.append(i)
+
+        print(my_friends)
         return my_friends
     
     def get_friend_requests(self):
