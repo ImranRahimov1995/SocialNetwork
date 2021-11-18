@@ -6,9 +6,9 @@
         <p><a style="color: red;" href="{{friend.user_to.get_absolute_url}}" >{{friend.user_to.user |capfirst}}</a></p> 
      <hr>
     {%else%}
-        <p><a style="color: red;" href="{{friend.user_from.get_absolute.url}}" >{{friend.user_from.user |capfirst}}</a></p> 
+  <a href="{{friend.user_from.get_absolute_url}}"><p>{{friend.user_from.get_absolute_url}}</p></a>
+        <p><a style="color: red;" href="{{friend.user_from.get_absolute_url}}" >{{friend.user_from.user |capfirst}}</a></p>
         <hr>
-
     {% endif %}
 {%endfor%}
 </div>
