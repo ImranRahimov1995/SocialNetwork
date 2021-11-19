@@ -1,13 +1,33 @@
+{% load thumbnail %}
+
 <h5>Friend-list:</h5>
 <hr>
 <div class='friendlist'>
-{%for friend in profile.get_friends %}
-    {% if friend.user_from == request.user.profile %}
-        <p><a style="color: red;" href="{{friend.user_to.get_absolute_url}}" >{{friend.user_to.user |capfirst}}</a></p> 
-     <hr>
+  {%for friend in profile.get_friends %}
+  <div class="oneOfFriend">
+    {%if friend.user_from.user == profile.user%}
+
+    {% thumbnail friend.user_to.photo "50x50" crop="30%" as im %}
+    <img src="{{im.url}}" alt="">
+    {% endthumbnail %}
+
     {%else%}
-        <p><a style="color: red;" href="{{friend.user_from.get_absolute_url}}" >{{friend.user_from.user |capfirst}}</a></p>
-        <hr>
+
+    {% thumbnail friend.user_from.photo "50x50" crop="30%" as im %}
+    <img src="{{im.url}}" alt="">
+    {% endthumbnail %}
+
+    {%endif%}
+
+    {% if friend.user_from == request.user.profile %}
+    <p><a style="color: red;" href="{{friend.user_to.get_absolute_url}}">
+        {{friend.user_to.user |capfirst}}</a></p>
+    <hr>
+    {%else%}
+    <p><a style="color: red;" href="{{friend.user_from.get_absolute_url}}">
+        {{friend.user_from.user |capfirst}}</a></p>
+    <hr>
     {% endif %}
-{%endfor%}
+  </div>
+  {%endfor%}
 </div>
