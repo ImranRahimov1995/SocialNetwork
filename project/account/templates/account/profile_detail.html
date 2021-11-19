@@ -25,16 +25,16 @@
         <p id="pbsText" style="font-style: italic; font-size: 24px;">{{public_status.status_text}}</p>
     </div>
         <br>
-        {% if not my_friend_or_not%}
+        {% if not my_friend_or_not and request.user.profile != profile%}
             {%if i_am_send_request%}
                <a href="#" id='add_friend'  class="btn btn-primary btn-lg disabled">
                  Sended
                 </a>
             {%else%}
-        <a href="#" id='add_friend'  class="btn btn-primary btn-lg">
-            + Add friend
-        </a>
-        {%endif%}
+                <a href="#" id='add_friend'  class="btn btn-primary btn-lg">
+                    + Add friend
+                </a>
+            {%endif%}
         {% endif %}
     </div>
     <div class="item_3" id="subscribe">

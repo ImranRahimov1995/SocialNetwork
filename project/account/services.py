@@ -25,7 +25,6 @@ def check_friendship(user, profile):
     return boolean which i used in templates
     """
 
-    print(user, "___________", profile)
     check = FriendshipRequest.objects.filter(
         Q(Q(user_from=user.pk) & Q(user_to=profile.pk)) &
         Q(accepted=True)
@@ -36,8 +35,6 @@ def check_friendship(user, profile):
     )
 
     if check or check_two:
-        print(check)
-        print(check_two)
         return True
     else:
         return False

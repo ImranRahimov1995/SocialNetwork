@@ -32,8 +32,6 @@ class Profile(models.Model):
 
         fr = self.fr_request.filter(accepted=True)
         sended_frs = self.sended_fr_request.filter(accepted=True)
-        print(fr)
-        print(sended_frs)
         if fr:
             for i in fr:
                 my_friends.append(i)
@@ -41,7 +39,6 @@ class Profile(models.Model):
             for i in sended_frs:
                 my_friends.append(i)
 
-        print(my_friends)
         return my_friends
     
     def get_friend_requests(self):

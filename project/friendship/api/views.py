@@ -20,6 +20,10 @@ class FriendshipRequestCreateView(generics.CreateAPIView):
         check_same_record = FriendshipRequest.objects.filter(
                                                     user_from=data['user_to'],
                                                     user_to=data['user_from'])
+
+        if data['user_from'] == data['user_to']:
+            raise ValidationError('You cannot send friendship  to myself')
+
         if check_same_record:
             raise ValidationError('You have already have friendship ')
         else:
