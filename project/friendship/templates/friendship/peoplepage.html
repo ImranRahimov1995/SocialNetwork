@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load thumbnail %}
 
 {%block content%}
 <div class="people-container">
@@ -10,8 +11,17 @@
         <div class="card" data-id="{{peop.id}}" style="width: 15rem;height: 50px;">
             <a href="{{peop.get_absolute_url}}">
             {%if peop.photo%}
-                <img src="{{peop.photo.url}}" class="card-img-top" alt="...">
+
+                {% thumbnail peop.photo "300x300" crop="20%" as im %}
+
+                    <img src="{{im.url}}" class="card-img-top" alt="...">
+
+
+                {% endthumbnail %}
+
+
             {%endif%}
+
             </a>
             <div class="card-body">
               <h5 class="card-title"><a href="{{peop.get_absolute_url}}">{{peop.user.first_name}}</a></h5>

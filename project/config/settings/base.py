@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     #3rd-part
     'crispy_forms',
     'rest_framework',
+    'sorl.thumbnail',
 ]
 
 MIDDLEWARE = [
