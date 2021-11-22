@@ -11,29 +11,36 @@ from rest_framework.exceptions import ValidationError
 class FriendshipRequestCreateView(generics.CreateAPIView):
     serializer_class = FriendshipRequestSerializer
     queryset = FriendshipRequest.objects.all()
-    permission_classes = [IsAuthenticated,]
+    permission_classes = [IsAuthenticated, ]
 
     def perform_create(self, serializer):
-        
+
         data = serializer.validated_data
         # print(serializer.validated_data)
         check_same_record = FriendshipRequest.objects.filter(
-                                                    user_from=data['user_to'],
-                                                    user_to=data['user_from'])
+            user_from=data['user_to'],
+            user_to=data['user_from'],
+        )
 
         if data['user_from'] == data['user_to']:
-            raise ValidationError('You cannot send friendship  to myself')
+            raise ValidationError(
+                'You cannot send friendship  to myself'
+            )
 
         if check_same_record:
-            raise ValidationError('You have already have friendship ')
+            raise ValidationError(
+                'You have already have friendship'
+            )
         else:
-            return super().perform_create(serializer)
+            try:
+                super().perform_create(serializer)
+            except ValidationError:
+                return ValidationError('check models settings')
 
 
 class FriendshipRequestRetrieveView(
-                    generics.RetrieveUpdateDestroyAPIView):
-
+    generics.RetrieveUpdateDestroyAPIView):
     serializer_class = FriendshipAcceptSerializer
     queryset = FriendshipRequest.objects.all()
     lookup_field = 'pk'
-    permission_classes = [IsAuthenticated,]
+    permission_classes = [IsAuthenticated, ]
