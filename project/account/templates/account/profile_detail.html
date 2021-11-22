@@ -13,21 +13,24 @@
         {% else %}
             <img src="{% static 'png/no_image.png'%}" id="jpg_avatar" alt="">
         {% endif %}
+
     </div>
+
+
     <div class="item_4" id="info">
         {% with profile.user as user  %}
         <p>Full name: {{user.first_name}} {{user.last_name}} </p>
         <p>Birth: {{profile.date_of_birth}}</p>
         <p>City: Baku</p>
         {% endwith %}
-
     </div>
+
+
     <div class="item_2" id="status">
-
-    <div class="PublcStatus" id="pbs">
-        <p>Your active status:</p>
-        <p id="pbsText" style="font-style: italic; font-size: 24px;">{{public_status.status_text}}</p>
-    </div>
+        <div class="PublcStatus" id="pbs">
+            <p>Your active status:</p>
+            <p id="pbsText" style="font-style: italic; font-size: 24px;">{{public_status.status_text}}</p>
+        </div>
         <br>
         {% if not my_friend_or_not and request.user.profile != profile%}
             {%if i_am_send_request%}
@@ -45,37 +48,13 @@
         <h5>Friend-list:</h5>
         <hr>
         <div class='friendlist'>
-        {%for friend in profile.get_friends %}
-            {%if friend.user_from.user == profile.user%}
-                {% thumbnail friend.user_to.photo "50x50" crop="30%" as im %}
+        {%for friend in profile.friends.all %}
+                {% thumbnail friend.photo "50x50" crop="30%" as im %}
                   <img src="{{im.url}}" alt="">
-
                 {% endthumbnail %}
-            {%elif friend.user_to.user == profile.user%}
-                {% thumbnail friend.user_from.photo "50x50" crop="30%" as im %}
-                  <img src="{{im.url}}" alt="">
-
-                {% endthumbnail %}
-            {%endif%}
-
-            {% if friend.user_from.user == request.user.profile %}
-                <p><a style="color: red;" href="{{friend.user_to.get_absolute_url}}" >
-                    {{friend.user_to.user |capfirst}}</a></p>
-             <hr>
-            {%elif friend.user_to.user == request.user.profile%}
-                <p><a style="color: red;" href="{{friend.user_from.get_absolute_url}}" >
-                    {{friend.user_from.user |capfirst}}</a></p>
-            {%elif friend.user_to.user == profile.user%}
-                <p><a style="color: red;" href="{{friend.user_from.get_absolute_url}}" >
-                    {{friend.user_from.user |capfirst}}</a></p>
-            {%elif friend.user_from.user == profile.user%}
-                <p><a style="color: red;" href="{{friend.user_to.get_absolute_url}}" >
-                    {{friend.user_to.user |capfirst}}</a></p>
-            {%else%}
-                <p><a style="color: red;" href="{{friend.user_from.get_absolute.url}}" >
-                    {{friend.user_from.user |capfirst}}</a></p>
+                <p><a style="color: red;" href="{{friend.get_absolute_url}}" >
+                    {{friend.user |capfirst}}</a></p>
                 <hr>
-            {% endif %}
         {%endfor%}
         </div>
     </div>

@@ -1,60 +1,43 @@
 {% extends 'base.html' %}
 {% load thumbnail %}
-
+{%load static%}
 {%block content%}
 <div class="people-container">
-    <div class="people-filter">
-        <p>Filter</p>
+  <div class="people-filter">
+    <p>Filter</p>
+  </div>
+  <div class="people-list">
+    {% for profile in profiles%}
+    <div class="card" data-id="{{profile.id}}"
+         style="width: 15rem;height: 50px;">
+      <a href="{{profile.get_absolute_url}}">
+        {%if profile.photo%}
+
+        {% thumbnail profile.photo "300x300" crop="20%" as im %}
+
+        <img src="{{im.url}}" class="card-img-top" alt="...">
+
+        {% endthumbnail %}
+
+
+        {% else %}
+
+        <img src="{% static 'png/no_image.png'%}" class="card-img-top"
+             width="250px" height="200px" alt="">
+
+        {%endif%}
+
+      </a>
+      <div class="card-body">
+        <h5 class="card-title"><a href="{{profile.get_absolute_url}}">{{profile.user.first_name}}</a>
+        </h5>
+        <!--              <a href="#" id='add_friend'  class="btn btn-primary">-->
+        <!--              Add friend-->
+        <!--              </a>-->
+      </div>
     </div>
-    <div class="people-list">
-        {% for peop in people%}
-        <div class="card" data-id="{{peop.id}}" style="width: 15rem;height: 50px;">
-            <a href="{{peop.get_absolute_url}}">
-            {%if peop.photo%}
-
-                {% thumbnail peop.photo "300x300" crop="20%" as im %}
-
-                    <img src="{{im.url}}" class="card-img-top" alt="...">
-
-
-                {% endthumbnail %}
-
-
-            {%endif%}
-
-            </a>
-            <div class="card-body">
-              <h5 class="card-title"><a href="{{peop.get_absolute_url}}">{{peop.user.first_name}}</a></h5>
-<!--              <a href="#" id='add_friend'  class="btn btn-primary">-->
-<!--              Add friend-->
-<!--              </a>-->
-            </div>
-        </div>
-        {%endfor%}
-    </div>
+    {%endfor%}
+  </div>
 </div>
 {%endblock content%}
 
-{%block js%}
-
-$(".card").on('click', 'a.btn',function(e){
-    e.preventDefault();
-    let people_id = $(this).parent().parent().attr('data-id');
-    let my_id = {{user.profile.id}}
-    let thisButton = $(this)
-    $.ajax({
-        url: `/api/people/add/`,
-        method: 'post',
-        dataType: 'json',
-        data: { 
-            user_from : my_id,
-            user_to: people_id,
-        },
-                
-        success: function(data){
-            thisButton.text('sended')
-        }
-    });
-});
-
-{%endblock js%}

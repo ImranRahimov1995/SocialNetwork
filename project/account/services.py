@@ -1,13 +1,12 @@
 import datetime
 
 from django.contrib.auth import authenticate, login, logout
-from django.db.models import Q
 
 from friendship.models import FriendshipRequest
 
 
 def check_sended_fr(profile1,profile2):
-    check = profile2.fr_request.filter(user_from=profile1,accepted=False)
+    check = profile2.received_requests.filter(user_from=profile1,accepted=False)
 
     if check:
         return True
@@ -16,7 +15,7 @@ def check_sended_fr(profile1,profile2):
 
 
 # in devoloping ,need optimization,
-def check_friendship(user, profile):
+def check_friendship(my_profile, profile):
     """
 
     Using in handler profile detail*
@@ -24,20 +23,25 @@ def check_friendship(user, profile):
 
     return boolean which i used in templates
     """
+    for x in profile.friends.all():
+        if x == my_profile:
+            return True
 
-    check = FriendshipRequest.objects.filter(
-        Q(Q(user_from=user.pk) & Q(user_to=profile.pk)) &
-        Q(accepted=True)
-    )
-    check_two = FriendshipRequest.objects.filter(
-        Q(Q(user_from=profile.pk) & Q(user_to=user.pk)) &
-        Q(accepted=True)
-    )
+    return False
 
-    if check or check_two:
-        return True
-    else:
-        return False
+    # check = FriendshipRequest.objects.filter(
+    #     Q(Q(user_from=user.pk) & Q(user_to=profile.pk)) &
+    #     Q(accepted=True)
+    # )
+    # check_two = FriendshipRequest.objects.filter(
+    #     Q(Q(user_from=profile.pk) & Q(user_to=user.pk)) &
+    #     Q(accepted=True)
+    # )
+    #
+    # if check or check_two:
+    #     return True
+    # else:
+    #     return False
 
 
 def get_years_range(start_year=1950):

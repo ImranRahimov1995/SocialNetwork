@@ -17,11 +17,11 @@ def profile_detail(request, pk):
     posts = Post.objects.filter(active=True, profile=profile).order_by(
         '-created')
 
-    my_friend_or_not = None
-    i_am_send_request = None
+    my_friend_or_not = check_friendship(request.user.profile,profile)
+    i_am_send_request = check_sended_fr(request.user.profile,profile)
 
     return render(request, 'account/profile_detail.html', {
-        'section': 'Profile',
+        'section': 'People',
         'profile': profile,
         'public_status': public_status,
         'posts': posts,

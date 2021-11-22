@@ -35,7 +35,7 @@ class FriendshipRequestCreateView(generics.CreateAPIView):
             try:
                 super().perform_create(serializer)
             except ValidationError:
-                print(ValidationError)
+                return ValidationError('check models settings')
 
 
 class FriendshipRequestRetrieveView(
