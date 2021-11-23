@@ -23,13 +23,12 @@
         {% else %}
 
         <img src="{% static 'png/no_image.png'%}" class="card-img-top"
-             width="250px" height="200px" alt="">
-
+             alt="">
         {%endif%}
 
       </a>
       <div class="card-body">
-        <h5 class="card-title"><a href="{{profile.get_absolute_url}}">{{profile.user.first_name}}</a>
+        <h5 class="card-title"><a href="{{profile.get_absolute_url}}">{{profile.user.first_name}} {{profile.user.last_name}}</a>
         </h5>
         <!--              <a href="#" id='add_friend'  class="btn btn-primary">-->
         <!--              Add friend-->
