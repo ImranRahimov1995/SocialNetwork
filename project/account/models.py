@@ -3,8 +3,9 @@ from django.conf import settings
 from django.urls import reverse
 
 
-def get_avatar_place(instance,filename):
+def get_avatar_place(instance, filename):
     return f'users/{instance.user}/avatar/{filename}'
+
 
 class Profile(models.Model):
     """
@@ -30,6 +31,10 @@ class Profile(models.Model):
 
     def get_absolute_url(self):
         return reverse("profile_detail", kwargs={"pk": self.pk})
+
+    def save(self, *args, **kwargs):
+        self.pk = self.user.pk
+        super().save(*args, **kwargs)
 
 
 class PublicStatus(models.Model):
