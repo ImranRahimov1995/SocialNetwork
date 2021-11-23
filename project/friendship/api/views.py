@@ -6,7 +6,7 @@ from account.models import Profile
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.exceptions import ValidationError
-
+from friendship.models import Friends
 
 class FriendshipRequestCreateView(generics.CreateAPIView):
     serializer_class = FriendshipRequestSerializer
@@ -44,3 +44,24 @@ class FriendshipRequestRetrieveView(
     queryset = FriendshipRequest.objects.all()
     lookup_field = 'pk'
     permission_classes = [IsAuthenticated, ]
+
+    def delete(self, request, pk):
+        fr = FriendshipRequest.objects.get(pk=pk)
+
+        check_one = Friends.objects.filter(
+            user1=fr.user_from,
+            user2=fr.user_to,
+        )
+        check_second = Friends.objects.filter(
+            user1=fr.user_to,
+            user2=fr.user_from,
+        )
+        print(check_one)
+        print(check_second)
+        if check_one:
+            check_one[0].delete()
+        if check_second:
+            check_second[0].delete()
+
+        super().delete(pk)
+        return Response('ok')

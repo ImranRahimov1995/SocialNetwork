@@ -33,7 +33,7 @@
         </div>
         <br>
         {% if not my_friend_or_not and request.user.profile != profile%}
-            {%if i_am_send_request%}
+            {%if friend_request%}
                <a href="#" id='add_friend' class="btn btn-primary btn-lg disabled">
                  Sended
                 </a>
@@ -41,6 +41,14 @@
                 <a href="#" id='add_friend' class="btn btn-primary btn-lg">
                     + Add friend
                 </a>
+            {%endif%}
+        {%else%}
+            {%if request.user.profile != profile%}
+                {% if accepted_fr_req %}
+                    <a href="#" id='delete_friend' class="btn btn-danger btn-lg">
+                    - Delete friend
+                </a>
+                {%endif%}
             {%endif%}
         {% endif %}
     </div>
@@ -105,6 +113,32 @@ $("#add_friend").on('click', function(e){
             }
     });
 
+});
+
+$("#delete_friend").on('click', function(e){
+    e.preventDefault();
+    let my_id = {{user.profile.id}}
+    let people_id = {{profile.id}}
+    let thisButton = $(this)
+    let friendship_id = {{accepted_fr_req.id}}
+
+    console.log(friendship_id)
+
+    $.ajax({
+        url: `/api/people/get/${friendship_id}/`,
+        method: 'delete',
+        dataType: 'json',
+        data: {
+
+        },
+
+        success: function(data){
+
+            $("#delete_friend").addClass('disabled')
+            thisButton.text('Deleted')
+
+        }
+    });
 });
 
 {%endblock js%}

@@ -5,7 +5,8 @@ from .forms import *
 from django.contrib import messages
 from django.views.decorators.http import require_http_methods
 from posts.models import Post
-from .services import check_friendship, check_sended_fr
+from .services import check_friendship, check_friendship_request, \
+    check_accepted_fr_req
 
 
 # in developing|security faulth
@@ -17,8 +18,10 @@ def profile_detail(request, pk):
     posts = Post.objects.filter(active=True, profile=profile).order_by(
         '-created')
 
-    my_friend_or_not = check_friendship(request.user.profile,profile)
-    i_am_send_request = check_sended_fr(request.user.profile,profile)
+    my_friend_or_not = check_friendship(request.user.profile, profile)
+    friendship_request = check_friendship_request(request.user.profile,
+                                                  profile)
+    accepted_fr_req = check_accepted_fr_req(request.user.profile, profile)
 
     return render(request, 'account/profile_detail.html', {
         'section': 'People',
@@ -26,7 +29,8 @@ def profile_detail(request, pk):
         'public_status': public_status,
         'posts': posts,
         'my_friend_or_not': my_friend_or_not,
-        'i_am_send_request': i_am_send_request,
+        'friend_request': friendship_request,
+        'accepted_fr_req': accepted_fr_req,
     })
 
 

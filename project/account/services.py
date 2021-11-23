@@ -1,15 +1,32 @@
 import datetime
 
 from django.contrib.auth import authenticate, login, logout
-
 from friendship.models import FriendshipRequest
 
 
-def check_sended_fr(profile1,profile2):
-    check = profile2.received_requests.filter(user_from=profile1,accepted=False)
+def check_accepted_fr_req(profile1, profile2):
+    check = profile2.received_requests.filter(user_from=profile1,
+                                              accepted=True)
+    #   Есть его запрос дружбы,
+    second_check = profile1.received_requests.filter(user_from=profile2,
+                                                     accepted=True)
 
     if check:
-        return True
+        return check[0]
+    elif second_check:
+        return second_check[0]
+    else:
+        return False
+
+
+def check_friendship_request(profile1, profile2):
+    # has request not accepted from me,
+    check = profile2.received_requests.filter(user_from=profile1,
+                                              accepted=False)
+
+    if check:
+        return check[0]
+
     else:
         return False
 
@@ -28,20 +45,6 @@ def check_friendship(my_profile, profile):
             return True
 
     return False
-
-    # check = FriendshipRequest.objects.filter(
-    #     Q(Q(user_from=user.pk) & Q(user_to=profile.pk)) &
-    #     Q(accepted=True)
-    # )
-    # check_two = FriendshipRequest.objects.filter(
-    #     Q(Q(user_from=profile.pk) & Q(user_to=user.pk)) &
-    #     Q(accepted=True)
-    # )
-    #
-    # if check or check_two:
-    #     return True
-    # else:
-    #     return False
 
 
 def get_years_range(start_year=1950):
