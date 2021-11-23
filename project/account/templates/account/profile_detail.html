@@ -1,45 +1,144 @@
 {% extends 'base.html' %}
 {%load static%}
+{% load thumbnail %}
 
 
 {% block content %}
     <div class="item_1" id="avatar">
         {%if profile.photo%}
-            <img src="{{profile.photo.url   }}" id="jpg_avatar" alt="">
+        {% thumbnail profile.photo "300x300" crop="30%" as im %}
+            <img src="{{im.url}}" id="jpg_avatar" alt="">
+        {% endthumbnail %}
+
         {% else %}
             <img src="{% static 'png/no_image.png'%}" id="jpg_avatar" alt="">
         {% endif %}
+
     </div>
+
+
     <div class="item_4" id="info">
-        {% with request.user as user  %}
+        {% with profile.user as user  %}
         <p>Full name: {{user.first_name}} {{user.last_name}} </p>
         <p>Birth: {{profile.date_of_birth}}</p>
         <p>City: Baku</p>
         {% endwith %}
+    </div>
 
-    </div>
+
     <div class="item_2" id="status">
-    <form id="PublicStatus">
-        <div class="form-group">
-        <label for="exampleFormControlTextarea1">Update your status:</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-        
-        <a  id='sendStatus'>Send</a>
-        <a  id='cancelChangeStatus'>Cancel</a>
+        <div class="PublcStatus" id="pbs">
+            <p>Your active status:</p>
+            <p id="pbsText" style="font-style: italic; font-size: 24px;">{{public_status.status_text}}</p>
         </div>
-    </form>
-    <div class="PublcStatus" id="pbs">
-        <p>Your active status:</p>
-        <p id="pbsText" style="font-style: italic; font-size: 24px;">{{public_status.status_text}}</p>
+        <br>
+        {% if not my_friend_or_not and request.user.profile != profile%}
+            {%if friend_request%}
+               <a href="#" id='add_friend' class="btn btn-primary btn-lg disabled">
+                 Sended
+                </a>
+            {%else%}
+                <a href="#" id='add_friend' class="btn btn-primary btn-lg">
+                    + Add friend
+                </a>
+            {%endif%}
+        {%else%}
+            {%if request.user.profile != profile%}
+                {% if accepted_fr_req %}
+                    <a href="#" id='delete_friend' class="btn btn-danger btn-lg">
+                    - Delete friend
+                </a>
+                {%endif%}
+            {%endif%}
+        {% endif %}
+    </div>
+    <div class="item_3" id="subscribe">
+        <h5>Friend-list:</h5>
+        <hr>
+        <div class='friendlist'>
+        {%for friend in profile.friends.all %}
+                {% thumbnail friend.photo "50x50" crop="30%" as im %}
+                  <img src="{{im.url}}" alt="">
+                {% endthumbnail %}
+                <p><a style="color: red;" href="{{friend.get_absolute_url}}" >
+                    {{friend.user |capfirst}}</a></p>
+                <hr>
+        {%endfor%}
+        </div>
+    </div>
+    <div class="item_6" id="articles">
+        <div class="posts">
+    {%for post in posts%}
+    <div class="card" data-id="{{post.id}}">
+        <div class="card-header">
+          {{post.created|timesince}}  ago
+
+        </div>
+        <div class="card-body" style="">
+          {% autoescape off %}
+          <p class="card-text">{{post.body}}</p>
+          {% endautoescape %}
+        </div>
+      </div>
+     {%endfor%}
     </div>
     </div>
-    <div class="item_3" id="subscribe">    
-        <p>My subscribes: 1</p>
-    </div>
-    <div class="item_6" id="articles">My articles</div>
 
 {% endblock content %}
 {%block js%}
 
 $('.main-container').addClass('ad');
+
+
+$("#add_friend").on('click', function(e){
+    console.log('ok')
+    e.preventDefault();
+    let my_id = {{user.profile.id}}
+    let people_id = {{profile.id}}
+    let thisButton = $(this)
+
+    $.ajax({
+        url: `/api/people/add/`,
+        method: 'post',
+        dataType: 'json',
+        data: {
+            user_from : my_id,
+            user_to: people_id,
+        },
+
+        success: function(data){
+
+            $("#add_friend").addClass('disabled')
+            thisButton.text('sended')
+            }
+    });
+
+});
+
+$("#delete_friend").on('click', function(e){
+    e.preventDefault();
+    let my_id = {{user.profile.id}}
+    let people_id = {{profile.id}}
+    let thisButton = $(this)
+    let friendship_id = {{accepted_fr_req.id}}
+
+    console.log(friendship_id)
+
+    $.ajax({
+        url: `/api/people/get/${friendship_id}/`,
+        method: 'delete',
+        dataType: 'json',
+        data: {
+
+        },
+
+        success: function(data){
+
+            $("#delete_friend").addClass('disabled')
+            thisButton.text('Deleted')
+
+        }
+    });
+});
+
 {%endblock js%}

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {%load static%}
-
+{% load thumbnail %}
 
 
 {% block content %}
@@ -14,12 +14,16 @@
             {% include "./inc/status.html"%}
         </div>
         <div class="item_3" id="subscribe">    
-            <p>My subscribes: 1</p>
+            {% include "./inc/subscribers.html"%}
         </div>
         <div class="item_5" id="actions">My actions</div>
         <div class="item_6" id="articles">
            {% include "./inc/posts.html"%}
         </div>
+        <div class="item_7" id="friends">
+            {% include "./inc/friendlist.html"%}
+        </div>
+
 {% endblock content %}
 
 {%block js%}

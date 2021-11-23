@@ -1,7 +1,10 @@
 {%load static%}
+{% load thumbnail %}
 
 {%if profile.photo%}
-    <img src="{{profile.photo.url   }}" id="jpg_avatar" alt="">
+    {% thumbnail profile.photo "300x300" crop="30%" as im %}
+        <img src="{{ im.url }}" id="jpg_avatar" alt="">
+    {% endthumbnail %}
 {% else %}
     <img src="{% static 'png/no_image.png'%}" id="jpg_avatar" alt="">
 {% endif %}

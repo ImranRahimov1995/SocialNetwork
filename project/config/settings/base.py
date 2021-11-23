@@ -11,7 +11,7 @@ INSTALLED_APPS = [
     #second_app
     'posts',
     #third_app
-
+    'friendship',
     #_________     
     'django.contrib.admin',
     'django.contrib.auth',
@@ -22,6 +22,7 @@ INSTALLED_APPS = [
     #3rd-part
     'crispy_forms',
     'rest_framework',
+    'sorl.thumbnail',
 ]
 
 MIDDLEWARE = [

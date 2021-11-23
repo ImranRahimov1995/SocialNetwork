@@ -5,8 +5,14 @@ from django.conf.urls.static import static
 
 
 urlpatterns = [
+    #local
     path('admin/', admin.site.urls),
-    path('api/posts/',include('posts.api.urls',),),
+    #posts
+    path('api/posts/',include('posts.api.urls'),),
+    #people
+    path('people/',include('friendship.urls'),),
+    path('api/people/',include('friendship.api.urls',),),
+    #profile
     path('',include('account.urls',)),
 ]
 

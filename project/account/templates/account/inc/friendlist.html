@@ -1,0 +1,19 @@
+{% load thumbnail %}
+
+<h5>Friend-list:</h5>
+<hr>
+<div class='friendlist'>
+  {%for friend in profile.friends.all %}
+  <div class="oneOfFriend">
+
+    {% thumbnail friend.photo "50x50" crop="30%" as im %}
+    <img src="{{im.url}}" alt="">
+    {% endthumbnail %}
+
+    <p><a style="color: red;" href="{{friend.get_absolute_url}}">
+        {{friend.user |capfirst}}</a></p>
+    <hr>
+
+  </div>
+  {%endfor%}
+</div>

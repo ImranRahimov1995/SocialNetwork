@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load thumbnail %}
+{%load static%}
+{%block content%}
+<div class="people-container">
+  <div class="people-filter">
+    <p>Filter</p>
+  </div>
+  <div class="people-list">
+    {% for profile in profiles%}
+    <div class="card" data-id="{{profile.id}}"
+         style="width: 15rem;height: 50px;">
+      <a href="{{profile.get_absolute_url}}">
+        {%if profile.photo%}
+
+        {% thumbnail profile.photo "300x300" crop="20%" as im %}
+
+        <img src="{{im.url}}" class="card-img-top" alt="...">
+
+        {% endthumbnail %}
+
+
+        {% else %}
+
+        <img src="{% static 'png/no_image.png'%}" class="card-img-top"
+             alt="">
+        {%endif%}
+
+      </a>
+      <div class="card-body">
+        <h5 class="card-title"><a href="{{profile.get_absolute_url}}">{{profile.user.first_name}} {{profile.user.last_name}}</a>
+        </h5>
+        <!--              <a href="#" id='add_friend'  class="btn btn-primary">-->
+        <!--              Add friend-->
+        <!--              </a>-->
+      </div>
+    </div>
+    {%endfor%}
+  </div>
+</div>
+{%endblock content%}
+

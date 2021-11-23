@@ -97,3 +97,6 @@ venv
 project/media
 project/static
 project/config/settings/pro.py
+
+users.json
+all.json

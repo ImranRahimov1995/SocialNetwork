@@ -77,3 +77,46 @@ $(".posts").on('click', 'button.btn-close',function(e){
         }
     });
 });
+
+
+$(".friend-request").on('click', 'a.accept',function(e){
+    e.preventDefault();
+    let post_class = $(this).parent();
+    console.log(post_class.attr('data-id'))
+
+    $.ajax({
+        url: `/api/people/get/${post_class.attr('data-id')}/`,
+        method: 'patch',
+        dataType: 'json',
+        data: { 
+            accepted:true
+        },
+                
+        success: function(data){
+            $('.friendlist').prepend(`
+            <p><a style="color: red;" href="#" >${data['user_from']}</a></p> 
+            <hr>  
+            `);
+            post_class.remove();
+        }
+    });
+});
+
+$(".friend-request").on('click', 'a.decline',function(e){
+    e.preventDefault();
+    let post_class = $(this).parent();
+    console.log(post_class.attr('data-id'))
+
+    $.ajax({
+        url: `/api/people/get/${post_class.attr('data-id')}/`,
+        method: 'delete',
+        dataType: 'json',
+        data: { 
+           
+        },
+                
+        success: function(data){
+            post_class.remove()
+        }
+    });
+});
