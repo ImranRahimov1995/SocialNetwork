@@ -9,6 +9,8 @@ class Chat(models.Model):
                                      related_name='chat')
 
     created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
 
     def __str__(self):
         return str(self.pk)
@@ -41,3 +43,12 @@ class Message(models.Model):
 
     class Meta:
         ordering = ('-created_at',)
+
+    def save(self, *args, **kwargs):
+
+        super().save(*args, **kwargs)
+        self.chat.updated_at = self.created_at
+        self.chat.save()
+        print(self.created_at)
+        print(self.chat.updated_at)
+

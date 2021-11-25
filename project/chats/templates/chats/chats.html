@@ -1,29 +1,64 @@
 {%extends 'base.html'%}
 {%load static%}
+{% load thumbnail %}
 
 {%block content%}
 
 <div class="chat-main-container container">
     <div class="my-chats">
+      {%for chat in chats%}
+      {% if chat.all_messages.all%}
+      {% if chat.members.last == request.user.profile%}
+        <a href="">
+          <div class="card my-card">
+            <div class="chat-card card-body ">
 
+              <div class="card-image">
+
+              {% if chat.members.first.photo%}
+                {% thumbnail chat.members.first.photo "50x50" crop="30%" as im %}
+                  <img src="{{im.url}}" class="card-img-top c-i">
+                {% endthumbnail %}
+              {%else%}
+                  <img src="{% static 'png/no_image.png'%}" class="card-img-top c-i">
+              {% endif%}
+              </div>
+              <div class="card-chat-info">
+                <h5 class="card-title">{{chat.members.first}}</h5>
+                <p class="card-text">{{chat.all_messages.first.body}}</p>
+                <p class="card-text">
+                  {{chat.all_messages.first.created_at|timesince}}</p>
+              </div>
+            </div>
+          </div>
+        </a>
+      {%else%}
       <a href="">
-      <div class="card my-card">
-        <div class="chat-card card-body ">
+          <div class="card my-card">
+            <div class="chat-card card-body ">
 
-          <div class="card-image">
-            <img src="test.jpg" class="card-img-top c-i" alt="...">
+              <div class="card-image">
+
+              {% if chat.members.last.photo%}
+                {% thumbnail chat.members.last.photo "50x50" crop="30%" as im %}
+                  <img src="{{im.url}}" class="card-img-top c-i">
+                {% endthumbnail %}
+              {%else%}
+                  <img src="{% static 'png/no_image.png'%}" class="card-img-top c-i">
+              {% endif%}
+              </div>
+              <div class="card-chat-info">
+                <h5 class="card-title">{{chat.members.last}}</h5>
+                <p class="card-text">{{chat.all_messages.first.body}}</p>
+                <p class="card-text">
+                  {{chat.all_messages.last.created_at|timesince}}</p>
+              </div>
+            </div>
           </div>
-
-          <div class="card-chat-info">
-            <h5 class="card-title">Imran Rahimov</h5>
-
-            <p class="card-text">Last message</p>
-            <p class="card-text">02.08.2021 15:33</p>
-          </div>
-
-        </div>
-      </div>
-      </a>
+        </a>
+      {%endif%}
+      {%endif%}
+      {%endfor%}
 
 
   </div>
