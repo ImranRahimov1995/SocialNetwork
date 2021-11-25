@@ -1,3 +1,9 @@
 from django.shortcuts import render
 
-# Create your views here.
+
+def get_chats(request):
+    context = {
+        'section': 'Messages',
+    }
+
+    return render(request,'chats/chats.html',context)

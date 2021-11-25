@@ -12,6 +12,9 @@ urlpatterns = [
     #people
     path('people/',include('friendship.urls'),),
     path('api/people/',include('friendship.api.urls',),),
+    #messages
+    path('messages/',include('chats.urls',),),
+    path('api/messages/', include('chats.api.urls', ), ),
     #profile
     path('',include('account.urls',)),
 ]
