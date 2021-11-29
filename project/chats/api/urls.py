@@ -4,7 +4,7 @@ from . import views
 
 
 urlpatterns = [
-
+    path('chats/<pk>/',views.ChatApiView.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

@@ -311,7 +311,7 @@ label {
 .oneOfMessage{
   margin-top: 1vh;
   background-color: white;
-  max-width:70%;
+  max-width:50%;
   display: flex;
   flex-direction:row;
 }
@@ -332,7 +332,7 @@ label {
     background-color: white;
     display: flex;
     flex-direction:row-reverse;
-    max-width:80%;
+    max-width:50%;
     margin-left:30%;
 
 }
@@ -352,4 +352,48 @@ label {
 
 .messageTextArea{
     font-family: 'M PLUS 1', sans-serif;
+}
+
+
+.asd {
+  border: 2px solid #dedede;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.darker {
+  border-color: #ccc;
+  background-color: #ddd;
+}
+
+.asd::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.asd img {
+  float: left;
+  max-width: 60px;
+  width: 100%;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+
+.asd img.right {
+  float: right;
+  margin-left: 20px;
+  margin-right:0;
+}
+
+.time-right {
+  float: right;
+  color: #aaa;
+}
+
+.time-left {
+  float: left;
+  color: #999;
 }
