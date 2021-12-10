@@ -6,12 +6,11 @@ ________________________
 
 
 ##### 1. git clone https://github.com/ImranRahimov1995/SocialNetwork.git
-##### 2. git check-out chats-app
-##### 3. cd SocialNetwork/project
+##### 2. cd SocialNetwork/project
 
-##### 4. . ./smart-commands/install.sh
-##### 5. . ./smart-commands/docker.sh
-##### 6. . ./smart-commands/run-server.sh
+##### 3. . ./smart-commands/install.sh
+##### 4. . ./smart-commands/docker.sh
+##### 5. . ./smart-commands/run-server.sh
 
 
 ________________________
