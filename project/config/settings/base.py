@@ -12,6 +12,8 @@ INSTALLED_APPS = [
     'posts',
     #third_app
     'friendship',
+    #fourth_app
+    'chats',
     #_________     
     'django.contrib.admin',
     'django.contrib.auth',
@@ -23,6 +25,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'rest_framework',
     'sorl.thumbnail',
+    'channels',
 ]
 
 MIDDLEWARE = [
@@ -54,6 +57,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'config.wsgi.application'
+ASGI_APPLICATION = "config.asgi.application"
 
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -111,3 +115,13 @@ REST_FRAMEWORK = {
     )
 }
 
+
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [("127.0.0.1", 6379)],
+        },
+    },
+}

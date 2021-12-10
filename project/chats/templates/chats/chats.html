@@ -1,0 +1,148 @@
+{%extends 'base.html'%}
+{%load static%}
+{% load thumbnail %}
+
+{%block content%}
+
+<div class="chat-main-container container">
+    <div class="my-chats">
+      {%for chat in chats%}
+      {% autoescape off %}
+
+      {% if chat.all_messages.all%}
+      {% if chat.members.last == request.user.profile%}
+      <a class='select-chat' data-id="{{chat.id}}" href="#">
+          <div class="card my-card">
+            <div class="chat-card card-body ">
+
+              <div class="card-image">
+
+              {% if chat.members.first.photo%}
+                {% thumbnail chat.members.first.photo "50x50" crop="30%" as im %}
+                  <img src="{{im.url}}" class="card-img-top c-i">
+                {% endthumbnail %}
+              {%else%}
+                  <img src="{% static 'png/no_image.png'%}" class="card-img-top c-i">
+              {% endif%}
+              </div>
+              <div class="card-chat-info">
+                <h5 class="card-title">{{chat.members.first}}</h5>
+                <p class="card-text">{{chat.all_messages.first.body}}</p>
+                <p class="card-text">
+                  {{chat.all_messages.first.created_at|timesince}}</p>
+              </div>
+            </div>
+          </div>
+        </a>
+      {%else%}
+      <a class='select-chat' data-id="{{chat.id}}" href="#">
+          <div class="card my-card">
+            <div class="chat-card card-body ">
+
+              <div class="card-image">
+
+              {% if chat.members.last.photo%}
+                {% thumbnail chat.members.last.photo "50x50" crop="30%" as im %}
+                  <img src="{{im.url}}" class="card-img-top c-i">
+                {% endthumbnail %}
+              {%else%}
+                  <img src="{% static 'png/no_image.png'%}" class="card-img-top c-i">
+              {% endif%}
+              </div>
+              <div class="card-chat-info">
+                <h5 class="card-title">{{chat.members.last}}</h5>
+                <p class="card-text">{{chat.all_messages.first.body}}</p>
+                <p class="card-text">
+                  {{chat.all_messages.first.created_at|timesince}}</p>
+              </div>
+            </div>
+          </div>
+        </a>
+      {%endif%}
+      {%endif%}
+      {% endautoescape %}
+
+      {%endfor%}
+
+
+  </div>
+
+  <div class="chat-content">
+    <div class="welcome-text">
+      <h2>Please select chat..</h2>
+    </div>
+    <div class="selected-chat">
+      <div class="selected-chat-info">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/1024px-No_image_available.svg.png" alt="Avatar" class="c-i"> \
+        <h5 class="card-title">Imran Rahimov</h5>
+      </div>
+
+      <div class="chat-messages" id="box">
+
+<!--        <div class="oneOfMessage">-->
+<!--          <div class="message-info">-->
+<!--            <img class="c-i" src="test.jpg" alt="" width="">-->
+<!--            <h6 class="card-title" style="margin-left: 5px;">Imran Rahimov</h6>-->
+<!--          </div>-->
+<!--          <hr>-->
+<!--          <div class="message-text">-->
+<!--            <p></p>-->
+<!--          </div>-->
+<!--        </div>-->
+
+<!--<div class="asd">-->
+<!--  <img src="/w3images/bandmember.jpg" alt="Avatar" style="width:100%;">-->
+<!--  <p>Hello. How are you today?</p>-->
+<!--  <span class="time-right">11:00</span>-->
+<!--</div>-->
+
+<!--<div class="asd darker">-->
+<!--  <img src="/w3images/avatar_g2.jpg" alt="Avatar" class="right" style="width:100%;">-->
+<!--  <p>Hey! I'm fine. Thanks for asking!</p>-->
+<!--  <span class="time-left">11:01</span>-->
+<!--</div>-->
+
+<!--<div class="asd">-->
+<!--  <img src="/w3images/bandmember.jpg" alt="Avatar" style="width:100%;">-->
+<!--  <p>Sweet! So, what do you wanna do today?</p>-->
+<!--  <span class="time-right">11:02</span>-->
+<!--</div>-->
+
+<!--<div class="asd darker">-->
+<!--  <img src="/w3images/avatar_g2.jpg" alt="Avatar" class="right" style="width:100%;">-->
+<!--  <p>Nah, I dunno. Play soccer.. or learn more coding perhaps?</p>-->
+<!--  <span class="time-left">11:05</span>-->
+<!--</div>-->
+
+<!--        <div class="secondOfMessage">-->
+<!--          <div class="message-info">-->
+<!--            <img class="c-i" src="test.jpg" alt="" width="">-->
+<!--            <h6 class="card-title" style="margin-left: 5px;">Imran Rahimov</h6>-->
+<!--          </div>-->
+<!--          <hr>-->
+<!--          <div class="message-text">-->
+<!--            <p></p>-->
+<!--          </div>-->
+<!--        </div>-->
+
+      </div>
+
+
+      <div class="inputTextContainer">
+        <div class="form-floating messageTextArea" >
+          <textarea class="form-control" placeholder="Leave a text here"
+                    id="floatingTextarea2" style="height: 15vh"></textarea>
+          <label for="floatingTextarea2">Message</label>
+        </div>
+          <input class="btn btn-success" id='btn' type="submit" value="Send">
+      </div>
+
+    </div>
+  </div>
+</div>
+
+{% endblock content%}
+
+{%block js%}
+    {% include "inc/chats.js"%}
+{%endblock js%}

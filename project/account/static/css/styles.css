@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Genos:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+1:wght@300&display=swap');
 
 a {
     color: rgb(255, 238, 0) ;
@@ -217,4 +219,200 @@ label {
 
 #articles{
     overflow: scroll;
+}
+
+
+    /* new----------------------------------- */
+
+.chat-main-container{
+  margin-top: 1vh;
+  border:1px solid black;
+  height: 88vh;
+  display:flex;
+  flex-direction:row;
+  padding:1vh;
+
+}
+
+.my-chats{
+  background-color:#aab1bd;
+  padding: 0.5vh;
+  width:30%;
+  overflow: auto;
+}
+
+.chat-content{
+  background-color:#aab1bd;
+  width:70%;
+  margin-left: 3px;
+}
+
+
+
+.chat-card{
+  margin-top: 1vh;
+  display:flex;
+  height: 16vh;
+  background:color: white;
+}
+
+.c-i{
+  width:50px;
+  height:50px;
+  border: 1px solid red;
+  border-radius: 100%;
+}
+.card-chat-info{
+  width:70%;
+  margin-left: 2vh;
+  overflow:hidden;
+
+}
+    /* new----------------------------------- */
+.welcome-text{
+  text-align:center;
+  display: flex;
+  flex-direction:column;
+  justify-content:center;
+  height: 100%;
+  color: #ede028;
+}
+
+.welcome-text h2{
+  font-family: 'Genos', sans-serif;
+}
+    /* new----------------------------------- */
+.selected-chat{
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  background: radial-gradient(circle, rgba(228,218,218,1) 0%, rgba(236,234,234,1) 80%);
+  display:none;
+}
+
+.selected-chat-info{
+  height:9%;
+  background: linear-gradient(90deg, rgba(164,27,27,1) 0%, rgba(11,11,11,1) 38%);
+  display:flex;
+  flex-direction: row;
+  padding: 3vh;
+  font-family: 'Genos', sans-serif;
+  color: white;
+}
+
+.chat-messages{
+  height: 70%;
+  display:flex;
+  flex-direction:column;
+  margin-top: 2vh;
+  overflow:scroll;
+}
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: gainsboro;
+    border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: black;
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+.oneOfMessage{
+  margin-top: 1vh;
+  background-color: white;
+  max-width:50%;
+  display: flex;
+  flex-direction:row;
+}
+
+.message-info {
+  display:flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content:center;
+  margin:auto;
+  padding:auto;
+
+}
+
+.secondOfMessage{
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+    background-color: white;
+    display: flex;
+    flex-direction:row-reverse;
+    max-width:50%;
+    margin-left:30%;
+
+}
+
+.message-text p{
+  padding: 2vh;
+  font-family: 'M PLUS 1', sans-serif;
+}
+
+.inputTextContainer{
+  height:25%;
+  margin-top: 2vh;
+  display:flex;
+  flex-direction:column;
+  padding: 2px;
+}
+
+.messageTextArea{
+    font-family: 'M PLUS 1', sans-serif;
+}
+
+
+.asd {
+  border: 2px solid #dedede;
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+}
+
+.darker {
+  border-color: #ccc;
+  background-color: #ddd;
+}
+
+.asd::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.asd img {
+  float: left;
+  max-width: 60px;
+  width: 100%;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+
+.asd img.right {
+  float: right;
+  margin-left: 20px;
+  margin-right:0;
+}
+
+.time-right {
+  float: right;
+  color: #aaa;
+}
+
+.time-left {
+  float: left;
+  color: #999;
 }
