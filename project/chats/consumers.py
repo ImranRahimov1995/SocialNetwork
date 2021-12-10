@@ -1,9 +1,10 @@
 import json
+import datetime
 
 from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
+
 from chats.models import Chat, Message
-import datetime
 
 
 class ChatsConsumer(AsyncWebsocketConsumer):
@@ -42,15 +43,14 @@ class ChatsConsumer(AsyncWebsocketConsumer):
             'body': new_message.body,
         }
 
-
         """ send received messages to all connected users"""
         await self.channel_layer.group_send(
-                                    self.chat_group_name,
-                                    {
-                                        'type': 'new_message',
-                                        'message': data
-                                    }
-                                )
+            self.chat_group_name,
+            {
+                'type': 'new_message',
+                'message': data
+            }
+        )
 
     async def new_message(self, event):
         message = event['message']
@@ -68,13 +68,11 @@ class ChatsConsumer(AsyncWebsocketConsumer):
         author = self.scope['user'].profile
         recipient = chat.members.exclude(pk=author.pk)[0]
 
-
         new_message = Message.objects.create(author=author,
                                              recipient=recipient,
-                                             chat=chat, body=text,)
+                                             chat=chat, body=text, )
 
         new_message.created_at = datetime.datetime.now()
         new_message.save()
-
 
         return new_message

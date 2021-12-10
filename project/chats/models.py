@@ -11,7 +11,6 @@ class Chat(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-
     def __str__(self):
         return str(self.pk)
 
@@ -30,10 +29,12 @@ class Message(models.Model):
     recipient = models.ForeignKey(Profile,
                                   on_delete=models.CASCADE,
                                   related_name='delivered_message')
-    chat = models.ForeignKey(Chat,
-                             on_delete=models.CASCADE,
-                             related_name='all_messages',
-                             null=True)
+    chat = models.ForeignKey(
+        Chat,
+        on_delete=models.CASCADE,
+        related_name='all_messages',
+        null=True
+    )
 
     created_at = models.DateTimeField(auto_now_add=True)
     body = models.TextField()
@@ -45,10 +46,7 @@ class Message(models.Model):
         ordering = ('-created_at',)
 
     def save(self, *args, **kwargs):
-
         super().save(*args, **kwargs)
         self.chat.updated_at = self.created_at
         self.chat.save()
-        print(self.created_at)
-        print(self.chat.updated_at)
 
